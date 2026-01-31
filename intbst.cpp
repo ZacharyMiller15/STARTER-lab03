@@ -170,7 +170,7 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
 
     if (n->parent) return n->parent;
 
-    return getNodeFor(value, root);
+    return 0;
 }
 
 // returns the predecessor value of the given value or 0 if there is none
@@ -197,7 +197,7 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
 
     if (n->parent) return n->parent;
 
-    return getNodeFor(value, root);
+    return 0;
 }
 
 // returns the successor value of the given value or 0 if there is none
@@ -225,8 +225,6 @@ void IntBST::transplant(Node* original, Node* new_node) {
 bool IntBST::remove(int value){
     Node* removal = getNodeFor(value, root);
 
-    bool is_root = (removal == root) ? true : false;
-
     if (!removal) return false;
 
     if (!removal->left && !removal->right) {
@@ -244,6 +242,12 @@ bool IntBST::remove(int value){
     }
 
     Node* pred = getPredecessorNode(value);
+
+    if (pred->parent != removal) {
+        transplant(pred, pred->left);
+        pred->left = removal->left;
+        pred->left->parent = pred;
+    }
 
     transplant(removal, pred);
     pred->right = removal->right;
