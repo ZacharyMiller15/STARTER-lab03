@@ -153,7 +153,7 @@ bool IntBST::contains(int value) const {
 
 // returns the Node containing the predecessor of the given value
 IntBST::Node* IntBST::getPredecessorNode(int value) const{
-    if (!getNodeFor(value, root)) return nullptr;
+    if (!getNodeFor(value, root)) return 0;
     
     Node* n = getNodeFor(value, root);
     if (n->left) {
@@ -180,7 +180,7 @@ int IntBST::getPredecessor(int value) const{
 
 // returns the Node containing the successor of the given value
 IntBST::Node* IntBST::getSuccessorNode(int value) const{
-    if (!getNodeFor(value, root)) return nullptr;
+    if (!getNodeFor(value, root)) return 0;
     
     Node* n = getNodeFor(value, root);
     if (n->right) {
